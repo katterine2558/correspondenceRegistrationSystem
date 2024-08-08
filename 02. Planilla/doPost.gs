@@ -232,6 +232,22 @@ function doPost(e) {
   
     }
 
+    //Inicializa trigger checkToUsersEmail
+    var existeTrigger = false;
+    for (var i = 0; i < triggers.length; i++) {
+      var trigger = triggers[i];
+      if (trigger.getHandlerFunction() === "checkToUsersEmail") {
+        existeTrigger = true; 
+      }
+    }
+    if (!existeTrigger) {
+      // Crea el trigger
+      var trigger = ScriptApp.newTrigger("checkToUsersEmail")
+        .timeBased()
+        .everyHours(2) // Ejecutar cada 2 horas
+        .create();
+    }
+
     return ContentService.createTextOutput("Se establecieron las constantes y se inicializaron los triggers");
 
   }
